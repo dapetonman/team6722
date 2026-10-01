@@ -16,3 +16,6 @@ Hello! We are LED Robotics, Team 6722, a non-profit team of passionate engineers
 5. Please give me suggestions or comments on what I should add or change, I am always up for constructive critic reviews of my code and work, and I hope the random freshman with the same spark in his eyes for web development can build on from this.
 
 6. This website is going to have a TODO section, most likely stored in another platform with a chart to describe what I am going to build, when I am, and what it should end up looking like.
+
+*10-1*
+First version of the website should be availble to view today, working on it. I'm going to keep three different forks, Development and Stable and Release. Release will be updated not as often, with Stable being updated decently often, and Development being updated everyday. Due tp the nature of the website, the development repo will NOT be public. Anyone who wants it or specific features added can email me at my email in my GitHub profile. Thanks for understanding. 
