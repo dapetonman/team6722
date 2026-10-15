@@ -60,6 +60,7 @@
   margin: 0 auto;
   padding: 0 clamp(1rem, 3vw, 1.5rem) 2.5rem;
   line-height: inherit;
+  transform: translateY(74px);
 }
 
 /* ---------- good ol' headings: big ROBO.woff2 text, cool fluid sizing for funny ---------- */
@@ -71,7 +72,7 @@
 
 .home-page h1 {
   font-size: clamp(1.6rem, 1rem + 2.2vw, 2.1rem);
-  text-align: center;
+  text-align: left;
   color: var(--text);
   margin: 0 0 1rem;
   padding-bottom: 0.5rem;

@@ -46,6 +46,7 @@
   --font-body: "Roboto", "ROBO", Arial, Helvetica, sans-serif;
   --bar-h: 74px;        /* how tall the bar is. the logo is 2.3x this and hangs out the bottom of it */
   --bar-h-shrink: 56px; /* same thing, but after u scroll down and the bar eats itself */
+  --marquee-h: 26px;  
 }
 
 /* ---------- global base ---------- */
@@ -114,9 +115,11 @@ h1, h2, h3, h4, h5, h6 {
 /* slim purple line that says the "LIGHT IT UP" chant scrolling right to left, fast,
    words separated by spaces. font: ROBO. */
 .marquee {
+  position: relative;   /* allow z-index to take effect */
+  z-index: 900;        /* sit above the fixed topbar so the stripe is visible */
   background: var(--purple);
   overflow: hidden;
-  height: 26px;
+  height: var(--marquee-h);
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--green);
@@ -146,17 +149,14 @@ h1, h2, h3, h4, h5, h6 {
    add links back into here, they all live in the panel now. ---------- */
 .topbar {
   position: fixed;
-  top: 0;
+  top: var(--marquee-h);
+  z-index: 1000;         /* keep the bar stacked below the marquee inside the same stacking context */
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
   width: 100%;
   min-height: var(--bar-h);
-  /* the logo is always bigger than the bar so it pokes out the bottom of it.
-     declared HERE (not on :root) so it re-computes when .shrink changes
-     --bar-h, and every rule below can just ask for --logo-h instead of doing
-     the math in five different places. */
   --logo-h: calc(var(--bar-h) * 2.3);
   background: var(--page-bg);
   color: var(--text);
@@ -299,9 +299,10 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--muted);
 }
 
+/* main nav (slide-in panel) */
 #main-nav {
   position: fixed;
-  top: 0;
+  top: 0; /* start at the top so it can cover the marquee */
   right: 0;
   height: 100vh;
   height: 100dvh;
@@ -317,12 +318,17 @@ h1, h2, h3, h4, h5, h6 {
   border-left: 3px solid var(--green);
   transform: translateX(105%);
   visibility: hidden;
-  transition: transform 0.25s ease, visibility 0.25s ease;
-  z-index: 975;
+  transition: transform 0.25s ease, visibility 0.25s ease, box-shadow 0.25s ease;
+  z-index: 1100; /* must be greater than .marquee's z-index (1015) */
+  box-shadow: none;
 }
 
-#main-nav.open { transform: none; visibility: visible; }
-
+/* open state: slide in and cast a left-side shadow over the page/marquee */
+#main-nav.open {
+  transform: none;
+  visibility: visible;
+  box-shadow: -18px 0 36px rgba(0, 0, 0, 0.6);
+}
 #main-nav > ul {
   display: flex;
   flex-direction: column;

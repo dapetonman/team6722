@@ -113,12 +113,21 @@
     '<div class="nav-overlay"></div>' +
     "</div>";
 
-  /* ---------- BEHAVIORS---------- */
+  (function moveNavToBody() {
+    var navEl = slot.querySelector("#main-nav");
+    var overlayEl = slot.querySelector(".nav-overlay");
+    if (navEl && overlayEl && (navEl.parentNode === slot || overlayEl.parentNode === slot)) {
+      // append to body in the same order they were in the DOM
+      document.body.appendChild(navEl);
+      document.body.appendChild(overlayEl);
+    }
+  })();
+
   var topbar = slot.querySelector(".topbar");
-  var btn = slot.querySelector("#nav-button");
-  var nav = slot.querySelector("#main-nav");
-  var overlay = slot.querySelector(".nav-overlay");
-  var dropdown = slot.querySelector(".has-dropdown");
+  var btn = document.getElementById("nav-button");           // button stays in header; select globally
+  var nav = document.getElementById("main-nav");             // nav may have been moved to body
+  var overlay = document.querySelector(".nav-overlay");      // select globally too 
+  var dropdown = nav.querySelector(".has-dropdown");         // dropdown lives inside the moved nav
   var dropdownLink = dropdown.firstElementChild;
 
   // basically just marks the current page in the nav.
