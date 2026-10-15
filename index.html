@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LED 6722 - Light It Up!</title>
+  <meta name="description" content="LED Robotics Team 6722 — student engineers from Pasco County, Florida." />
+  <link rel="icon" href="images/favicon.ico" />
+
+  <!-- page styles (header.css first: fonts, tokens, bar, buttons) -->
+  <link rel="stylesheet" href="pages/css/header.css" />
+  <link rel="stylesheet" href="pages/css/index.css" />
+</head>
+
+<body>
+  <!-- ==========================================================
+    INDEX PAGE
+    video hero at top, purple content column underneath.
+    shared bar (marquee + centered logo + nav) is built by
+    header.js from the data-* attributes below.
+  ========================================================== -->
+
+  <!-- intro splash, purple screen with the green LED logo in the middle. the logo
+       then FLIES UP into the top bar and shrinks to fit it (see the script at the
+       bottom), while the backdrop fades away to reveal the home page. -->
+  <div class="intro-splash" aria-hidden="true">
+    <div class="intro-backdrop"></div>
+    <img class="intro-logo" src="images/LED.png" alt="" />
+  </div>
+
+  <!-- shared bar placeholder where header.js fills this in. data-base =
+       path back to the site root, data-page = active nav key. -->
+  <div id="site-header" data-base="" data-page="home"></div>
+
+  <!-- ================= video hero (top of screen, content scrolls) ================= -->
+  <section class="hero is-video" id="content">
+    <video
+      class="hero-video"
+      autoplay muted loop playsinline preload="auto"
+      disablepictureinpicture
+      poster="images/team/FRC 2026 Team.JPG"
+      aria-label="LED Robotics team intro video"
+    >
+      <!-- source order IS the fallback order: webm first (4.5mb, about a fifth
+           of the mp4), then the mp4 for anything that wont take webm, then the
+           team photo for anything that cant play video at all. which one lands
+           gets printed to the console by the script at the bottom of the page. -->
+      <source src="video.webm" type="video/webm" />
+      <source src="video.mp4" type="video/mp4" />
+      <img src="images/team/FRC 2026 Team.JPG" alt="LED Robotics Team 6722" />
+    </video>
+    <!-- the last stand: shown by script if webm AND mp4 both go sideways -->
+    <img
+      class="hero-fallback"
+      src="images/team/FRC 2026 Team.JPG"
+      alt="LED Robotics Team 6722"
+    />
+    <div class="hero-overlay"></div>
+
+    <!-- hero text/actions overlaid on the video -->
+    <div class="hero-text">
+      <h1>LIGHT IT UP</h1>
+      <p>
+        LED Robotics, Team 6722 — a non-profit crew of student engineers
+        from Pasco County, Florida, building for VEX and the
+        FIRST Robotics Competition.
+      </p>
+      <div class="hero-actions">
+        <!-- Meet the Team: opens the quote modal -->
+        <a class="button button--meet" href="#" aria-label="Meet the Team">
+          Meet the Team
+        </a>
+        <a class="btn" href="pages/robots.html">See the Robots</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= main content (scrolls underneath) ================= -->
+  <main class="home-page">
+
+    <!-- welcome section -->
+    <hr />
+    <h1>WELCOME</h1>
+
+    <!-- Intro card -->
+    <div class="card">
+      <p>
+        We are LED Robotics, Team 6722, a non-profit team of passionate engineers
+        from Pasco County, Florida. We take part in both VEX competitions as well as the
+        FIRST Robotics Competition. By training high school students in the fields of
+        engineering such as designing, building, electrical and programming, we create
+        unique robot designs to compete in each season's new engineering
+        challenges and competitions. Beyond just the competition, we work alongside
+        our local community through our Geared for Girls program, a way for us to
+        inspire young women to join the STEM field. We make visits to
+        the Trinity Farmers Market and similar markets to help inspire and teach children
+        about how robots work. As a local team, we support
+        those around us through mentoring and support - both on and off the field.
+        With our reliance on FIRST values, Gracious Professionalism, and Coopertition,
+        we hope to assist and inspire our community to make technology, robotics and
+        engineering more accessible to anyone who wants to learn.
+      </p>
+      <i class="quote">- Nick Hughes, President of LED Robotics 6722</i>
+    </div>
+
+    <!-- links in middle -->
+    <div class="link-grid">
+      <div class="link-card">
+        <h2>Competition</h2>
+        <p>
+          <a href="http://firstinspires.org/robotics/frc">FIRST Robotics Competition (FRC)</a>
+        </p>
+        <p>
+          Season schedule:
+          <a href="https://www.thebluealliance.com/team/6722">Blue Alliance — Team 6722</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- LED Spotlight video series where the text left, video right (TODOL FIX THE YOUTUBE MFING STUPID GOOGLE) -->
+    <section>
+      <hr />
+      <h1>LED Spotlight</h1>
+      <div class="split">
+        <div class="split-text">
+          <p>
+            The LED Spotlight is a video series where every Friday we interview influential
+            figures to LED. We record and post these spotlights with the intent of giving a wider
+            audience a better understanding of how our club works. The people we interview come
+            from all different groups of people: leads, mentors, or someone who has just been doing
+            a lot of work recently. Overall, we hope to give our members a platform where they
+            can tell people about the work they are doing.
+          </p>
+          <p><i>- Elijah Mather, Media Crew of LED Robotics 6722</i></p>
+        </div>
+        <div class="split-media">
+          <iframe
+            src="https://www.youtube.com/embed?listType=playlist&list=PLuxi5Sn6xkGgSeXcYr_mAruHeAnt-YkBs"
+            title="Led Spotlight"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- upcoming events -->
+    <hr />
+    <section>
+      <h1>LED Upcoming events</h1>
+      <div class="responsive-iframe-container">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&showTitle=0&showCalendars=0&mode=AGENDA&src=bC5lLmQucm9ib3RpY3MuNjcyMkBnbWFpbC5jb20&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%2333B679&color=%234285F4"
+          width="800"
+          height="600"
+          frameborder="0"
+          scrolling="yes"
+          title="LED Robotics upcoming events calendar"
+        >
+        </iframe>
+      </div>
+    </section>
+    <hr />
+
+    <!-- footer -->
+        <div class="site-footer">
+      <p>&copy; LED Robotics Team 6722 &mdash; New Port Richey, FL.</p>
+      <p>
+        <a href="index.html">Home</a> &middot;
+        <a href="pages/team.html">Meet the team</a> &middot;
+        <a href="pages/sponsorship.html">Sponsor us</a> &middot;
+        <a href="pages/branding.html">Branding</a> &middot;
+        <a href="https://github.com/LED-Robotics/led-robotics.github.io" target="_blank" rel="noopener">View site source on GitHub</a> &middot;
+        <a href="https://forms.gle/s6RCjAgyzZ24tDhS7" target="_blank" rel="noopener">Website feedback</a> &middot;
+        <a href="http://www.firstinspires.org" target="_blank" rel="noopener">FIRST</a> &middot;
+        <a href="#top">Back to top</a>
+      </p>
+      <p class="site-credit">Website Made With Love By Preston Espinosa</p>
+    </div>
+
+  </main>
+
+  <!-- shared bar (marquee, logo, nav, socials) -->
+  <script src="header.js?v=2"></script>
+
+  <script>
+    // ============ meet the team button and placeholder quote ============
+    (function () {
+      var meetBtn = document.querySelector('.button--meet');
+      var html = document.documentElement;
+      if (!meetBtn) return;
+
+      var modal = document.createElement('div');
+      modal.className = 'meet-modal';
+      modal.innerHTML = [
+        '<div class="meet-modal-inner">',
+        '  <button class="meet-modal-close" aria-label="Close quote" role="button">&times;</button>',
+        '  <h2>Our Team</h2>',
+        '  <blockquote class="meet-quote" id="meet-quote">"This will be implemented soon."</blockquote>',
+        '</div>'].join('');
+
+      document.body.appendChild(modal);
+
+      var closeBtn = modal.querySelector('.meet-modal-close');
+      closeBtn.addEventListener('click', hideModal);
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal || e.target === closeBtn) hideModal();
+      });
+
+      function showModal() {
+        modal.classList.add('active');
+        html.style.overflow = 'hidden'; // prevent scroll while modal is open
+      }
+
+      function hideModal() {
+        modal.classList.remove('active');
+        html.style.overflow = '';
+      }
+
+      meetBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showModal();
+      });
+    })();
+
+    // unpausable hero video no controls rendered and any pause request
+    // (keyboard, media keys) resumes immediately. THIS HASNT BEEN TESTED)
+    (function () {
+      var v = document.querySelector(".hero-video");
+      if (!v) return;
+      v.addEventListener("pause", function () {
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      });
+    })();
+
+    // ===== hero video report: prints which source actually made it onto the
+    // screen (webm -> mp4 -> team photo) and drops to the photo if both
+    // videos are dead on arrival. =====
+    (function () {
+      var v = document.querySelector(".hero-video");
+      if (!v) return;
+      var hero = v.closest ? v.closest(".hero") : null;
+      var said = false;
+
+      function file(src) { return src ? src.split("/").pop() : "nothing"; }
+
+      function report() {
+        if (said || !v.currentSrc) return;
+        said = true;
+        console.log("[hero video] using: " + file(v.currentSrc));
+      }
+
+      var canWebm = v.canPlayType ? (v.canPlayType("video/webm") || "no") : "?";
+      var canMp4 = v.canPlayType ? (v.canPlayType("video/mp4") || "no") : "?";
+      console.log("[hero video] browser says webm: " + canWebm + " / mp4: " + canMp4);
+
+      Array.prototype.forEach.call(v.querySelectorAll("source"), function (s) {
+        s.addEventListener("error", function () {
+          console.log("[hero video] " + file(s.src || s.getAttribute("src")) + " no good here, trying the next one");
+        });
+      });
+
+      v.addEventListener("loadeddata", report);
+      v.addEventListener("canplay", report);
+
+      v.addEventListener("error", function () {
+        said = true;
+        console.log("[hero video] neither video plays, using the team photo instead");
+        if (hero) hero.classList.add("video-dead");
+      });
+
+      if (v.readyState >= 2) report();
+    })();
+
+    // ===== intro splash: the big centered logo flies up into the top bar and
+    // shrinks to fit it, then gets out of there. transform + opacity only so the
+    // gpu does all the work, no repaints. reduced motion? we never start, the
+    // splash is display:none and the bar logo is already in place. =====
+    (function () {
+      var splash = document.querySelector(".intro-splash");
+      var from = document.querySelector(".intro-logo");
+      var to = document.getElementById("logo");
+      if (!splash || !from || !to || !from.animate) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      function start() {
+        var a = from.getBoundingClientRect();
+        var b = to.getBoundingClientRect();
+        if (!a.width || !b.width) return; // css fallback hides the splash later
+
+        var scale = b.width / a.width;
+        var dx = (b.left + b.width / 2) - (a.left + a.width / 2);
+        var dy = (b.top + b.height / 2) - (a.top + a.height / 2);
+
+        from.style.willChange = "transform";
+        to.style.visibility = "hidden"; // hide the real logo until the big one lands
+
+        from.animate(
+          [
+            { transform: "translate(-50%, -50%) scale(1)" },
+            { transform: "translate(-50%, -50%) translate(" + dx + "px, " + dy + "px) scale(" + scale + ")" }
+          ],
+          { duration: 900, delay: 300, easing: "cubic-bezier(.65, 0, .35, 1)", fill: "both" }
+        ).onfinish = function () {
+          from.style.willChange = "";
+          to.style.visibility = ""; // hand off, the real bar logo takes over
+          from.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: "forwards" })
+            .onfinish = function () { splash.remove(); };
+        };
+      }
+
+      requestAnimationFrame(start);
+    })();
+  </script>
+</body>
+</html>

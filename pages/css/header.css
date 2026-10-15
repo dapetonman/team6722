@@ -1,0 +1,835 @@
+/* ==========================================================
+   header.css, cool shared design system
+   loaded FIRST by every page. owns the following itself: fonts, colors,
+   the base, the top bar (slim marquee thing that looks cool + LED [logo] ROBOTICS
+   centered + the hamburger, nothing else in there), socials (panel only),
+   the slide in nav panel + "Our Robots" accordion,
+   unified buttons, shared utilities (.center/.crumb/.split/
+   .card-link), and the sponsor logo block.
+
+   palette, uses a deep purple, brand purple panels, white text,
+   green accents.
+   display text ROBO.woff2, small text roboto.woff2. unified.
+   ========================================================== */
+
+/* ---------- le fonts ---------- */
+@font-face {
+  font-family: "ROBO";
+  src: url("../../assets/font/ROBO.woff2") format("woff2"),
+       url("/assets/font/ROBO.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/font/roboto.woff2") format("woff2"),
+       url("/assets/font/roboto.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- color tokens (single source for the whole site so like, if this is gone, website is a goner.) ---------- */
+:root {
+  --page-bg: #2a0d3f;   /* screen backdrop + top bar (deep purple) */
+  --purple: #663497;    /* brand purple content column thingy, slim banner, accents */
+  --panel: #4a2378;     /* cards / panels inside the column */
+  --green: #27f525;     /* the ORIGINAL team green from before the rework — accents, buttons, hovers */
+  --green-dark: #1ed41e;
+  --text: #ffffff;      /* body text is white everywhere */
+  --muted: #d5c6ef;     /* secondary text on purple */
+  --border: #8a63c4;    /* light purple rules/borders */
+  --radius: 4px;        /* boxes are only lightly rounded, i hate the old sites formatting */
+  --font-display: "ROBO", "Roboto", Arial, Helvetica, sans-serif;
+  --font-body: "Roboto", "ROBO", Arial, Helvetica, sans-serif;
+  --bar-h: 74px;        /* how tall the bar is. the logo is 2.3x this and hangs out the bottom of it */
+  --bar-h-shrink: 56px; /* same thing, but after u scroll down and the bar eats itself */
+}
+
+/* ---------- global base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--page-bg);
+  /* the bar is sticky, so every in page anchor (#content, #top, #fundraisers)
+     needs to land BELOW it instead of hiding under it. 7rem clears marquee + bar. */
+  scroll-padding-top: 7rem;
+  overscroll-behavior-y: none;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 1rem + 0.3vw, 1.15rem);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* every heading uses the ROBO display font with no exceptions, so the
+   fonts always match from page to page. or else, times new roman will haunt my dreams. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+::selection { background: var(--green); color: #111111; }
+::-moz-selection { background: var(--green); color: #111111; }
+
+/* skip to content link */
+#content-skip {
+  position: absolute;
+  left: 0.5rem;
+  top: -3rem;
+  z-index: 2000;
+  background: var(--green);
+  color: #111111;
+  font-family: var(--font-display);
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 4px 4px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+#content-skip:focus { top: 0; }
+
+/* ==========================================================
+   !!IMPORTANT!! TOP AREA: the cool slim marquee banner + bar (sticky together)
+   ========================================================== */
+/* THE HEADER SLOT IS WHAT STICKS, not .top-wrap. a sticky element can only move
+   inside its own parent's box, so if only .top-wrap is sticky it gets dragged
+   off screen the second #site-header's (tiny) box scrolls past. keep this on
+   the slot or the bar will scroll away and never come back. */
+#site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.top-wrap {
+  position: relative;
+}
+
+/* slim purple line that says the "LIGHT IT UP" chant scrolling right to left, fast,
+   words separated by spaces. font: ROBO. */
+.marquee {
+  background: var(--purple);
+  overflow: hidden;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--green);
+}
+
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee-scroll 9s linear infinite;
+}
+
+.marquee-track span {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  color: var(--green);
+  text-transform: uppercase;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- bar: brand centered, hamburger right. that is the whole bar, do not
+   add links back into here, they all live in the panel now. ---------- */
+.topbar {
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: var(--bar-h);
+  /* the logo is always bigger than the bar so it pokes out the bottom of it.
+     declared HERE (not on :root) so it re-computes when .shrink changes
+     --bar-h, and every rule below can just ask for --logo-h instead of doing
+     the math in five different places. */
+  --logo-h: calc(var(--bar-h) * 2.3);
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: var(--font-display);
+  padding: 0 1.1rem;
+  transition: min-height 0.15s ease;
+}
+
+/* the bottom line of the bar, drawn by hand instead of a border so we can bite a
+   chunk out of it where the big logo sits: the line stops dead on either side of
+   the logo (half the logo width + a little gap) and picks up again past it.
+   two flat rectangles instead of a mask, so nothing extra gets rasterized.
+   half of --logo-h is what centers the bite on the logo, so the gap always
+   lands under the logo no matter what resolution, bar size or shrink state. */
+.topbar::before,
+.topbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: var(--purple);
+}
+
+.topbar::after { left: 0; right: calc(50% + var(--logo-h) / 2 + 10px); }
+.topbar::before { right: 0; left: calc(50% + var(--logo-h) / 2 + 10px); }
+
+.topbar.shrink { --bar-h: var(--bar-h-shrink); }
+
+/* brand: THE LOGO IS WHAT GETS CENTERED, at exactly 50% of the screen, and the
+   two words hang off either side of it. centering the whole LED + logo + ROBOTICS
+   row instead (what this used to do) drags the logo left by however much
+   "ROBOTICS" outweighs "LED" — which means the bite in the bar line (drawn on
+   50% too) misses the logo and leaves a bald spot in the line. because the logo
+   box has a fixed size from --logo-h, it lands on the same pixel at every
+   resolution, in every bar/shrink state, words showing or words hidden. */
+.brand {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* the words are parked OUTSIDE the logo box (one left, one right) so their width
+   can never move the logo. they still sit vertically centered in the bar while
+   the logo hangs out the bottom of it. */
+.brand-word {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1rem + 1.6vw, 2.1rem);
+  letter-spacing: 3px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.brand-word:first-child { right: calc(100% + 0.5rem); }
+.brand-word:last-child { left: calc(100% + 0.5rem); }
+
+/* the big one: way taller than the bar, pokes out the bottom, no white box around it.
+   drop-shadow (not box-shadow) so the shadow hugs the hexagon instead of a square.
+   size comes from --logo-h (bar height x 2.3), so it scales with the bar, the
+   shrink state and the screen, always. */
+#logo {
+  display: block;
+  width: var(--logo-h);
+  height: var(--logo-h);
+  object-fit: contain;
+  background: none;
+  padding: 0;
+  filter: drop-shadow(0 6px 9px rgba(0, 0, 0, 0.55));
+  transition: width 0.15s ease, height 0.15s ease;
+}
+
+/* ---------- social icons (black SVGs whitened by filter) ---------- */
+.social-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* socials ONLY live in the panel, the bar does not get any. */
+.social-row--panel {
+  display: flex;
+  justify-content: center;
+}
+
+.social-row a,
+.copy-email {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  min-height: 34px;
+  padding: 0.25rem 0.55rem;
+  background: transparent;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  color: var(--green);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+}
+
+.social-row img {
+  display: block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.social-row a:hover,
+.copy-email:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #111111;
+}
+
+.social-row a:hover img { filter: brightness(0); }
+
+/* ---------- main nav: ALWAYS the slide in panel, there is no inline nav in the
+   bar anymore, the hamburger is the only way in. do not put links back up there. ---------- */
+.nav-tagline {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+#main-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: min(86vw, 340px);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  padding: 6rem 1.25rem 2rem;
+  overflow-y: auto;
+  background: var(--page-bg);
+  border-left: 3px solid var(--green);
+  transform: translateX(105%);
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0.25s ease;
+  z-index: 975;
+}
+
+#main-nav.open { transform: none; visibility: visible; }
+
+#main-nav > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#main-nav a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+#main-nav > ul > li > a {
+  display: block;
+  text-align: center;
+  padding: 0.7rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+
+/* same hover everywhere: white pill, black text */
+#main-nav > ul > li > a:hover,
+#main-nav > ul > li > a.active {
+  background: #ffffff;
+  color: #111111;
+}
+
+/* the slightly broken sponsor nav button: green with black text (same hover as all buttons) */
+#main-nav .nav-cta {
+  background: var(--green);
+  color: #111111;
+}
+
+#main-nav .nav-cta:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #111111;
+  transform: translateY(-2px);
+}
+
+/* ---------- Our Robots accordion (nests inside the panel, tap or keyboard toggles it) ---------- */
+.has-dropdown { position: relative; }
+
+.has-dropdown > a::after {
+  content: " \25BE";
+  display: inline-block;
+  font-size: 0.75em;
+  transition: transform 0.1s ease;
+}
+
+.has-dropdown.open > a::after { transform: rotate(180deg); }
+
+.dropdown {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0.4rem;
+  background: var(--panel);
+  border: 2px solid var(--purple);
+  border-radius: 4px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.has-dropdown.open .dropdown { display: flex; }
+
+.dropdown a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+
+.dropdown a:hover {
+  background: var(--green);
+  color: #111111;
+}
+
+/* ---------- hamburger, the only control in the bar besides the brand ---------- */
+#nav-button {
+  display: block;
+  position: relative;
+  /* sits above the panel (975) so the X stays clickable while its open */
+  z-index: 1000;
+  margin-left: auto;
+  width: 44px;
+  height: 38px;
+  background: transparent;
+  border: 2px solid var(--green);
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#nav-button span {
+  display: block;
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  height: 3px;
+  background: var(--green);
+  border-radius: 2px;
+  transition: top 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+#nav-button span:nth-child(1) { top: 8px; }
+#nav-button span:nth-child(2) { top: 16px; }
+#nav-button span:nth-child(3) { top: 24px; }
+
+#nav-button.open span:nth-child(1) { top: 16px; transform: rotate(-45deg); }
+#nav-button.open span:nth-child(2) { opacity: 0; }
+#nav-button.open span:nth-child(3) { top: 16px; transform: rotate(45deg); }
+
+/* the dimmer. lives inside .top-wrap so it dims the bar too: 500 puts it over the
+   topbar (auto) but still under the panel (975) and the hamburger (1000). */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 500;
+}
+
+.nav-overlay.show { opacity: 1; visibility: visible; }
+
+/* phones: the LED / ROBOTICS words are GONE, the logo is all u get. that also
+   solves the crowding problem forever — no words means nothing can ever crash
+   into the hamburger, at any phone width. the bar stays fat enough that the
+   logo is still huge. logo never stops being 2.3x the bar. */
+@media (max-width: 640px) {
+  :root { --bar-h: 62px; --bar-h-shrink: 50px; }
+  .brand-word { display: none; }
+}
+
+@media (max-width: 430px) {
+  :root { --bar-h: 56px; --bar-h-shrink: 46px; }
+}
+
+/* ==========================================================
+   UNIFIED BUTTONS, aka every button the same size, same hover. This was hard. Dont break it. You will anyway. Screw you.
+   ========================================================== */
+.btn,
+.btn-blank,
+.button--meet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  min-width: 160px;
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.1s ease, color 0.1s ease,
+    border-color 0.1s ease, transform 0.1s ease;
+}
+
+.btn,
+.button--meet {
+  background: var(--green);
+  color: #111111; /* black text on every green button */
+}
+
+.btn-blank {
+  background: transparent;
+  color: var(--text);
+  border-color: #ffffff;
+}
+
+/* one hover thingy for all buttons, white fill, black text, small lift. looks nice, sort of kind of crappy, whatever bro. */
+.btn:hover,
+.btn-blank:hover,
+.button--meet:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #111111;
+  transform: translateY(-2px);
+}
+
+.btn:active,
+.btn-blank:active,
+.button--meet:active { transform: scale(0.97); }
+
+/* ==========================================================
+   SHARED UTILITIES (KEEP THIS ALIVE, OR ELSE...)
+   ========================================================== */
+.center { text-align: center; }
+
+/* breadcrumb above detail page titles */
+.crumb {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+  margin: 0.75rem 0 0;
+}
+
+.crumb a { color: var(--green); }
+
+/* body-copy links (on purple with white text, green on hover, looks nice) */
+main a,
+.home-page a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+
+main a:hover,
+.home-page a:hover {
+  background: var(--green);
+  color: #111111;
+  text-decoration: none;
+}
+
+/* the two rules above are written for body copy, and they were grabbing every
+   button sitting inside the page copy (.home-page), which is how "How to
+   Sponsor" ended up with white text + an underline on a green pill. buttons are
+   buttons: black text, no underline, whatever hover they already had. */
+main a.btn,
+main a.button--meet { color: #111111; text-decoration: none; }
+
+main a.btn-blank { color: var(--text); text-decoration: none; }
+
+/* card links (leader/robot grids and more later on, when i make the documentation.) */
+main table td a.card-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+main table td a.card-link:hover { background: transparent; }
+
+/* ==========================================================
+   footer, one definition so every page renders it identically
+   (declared after the generic link rules so green wins) Looks awesome, works awesome enough and i think it nice.
+   ========================================================== */
+.site-footer {
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 1.5rem 1rem 0.5rem;
+}
+
+.site-footer p {
+  max-width: 800px;
+  margin: 0.15rem auto;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.site-footer a { color: var(--green); }
+
+.site-footer .site-credit {
+  font-family: var(--font-display);
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+/* split layout: text left, media right (all pages except robots because i HATE MYSELF) */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: center;
+}
+
+.split-text,
+.split-media { min-width: 0; }
+
+.split-media { text-align: center; }
+
+.split-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--green);
+  border-radius: var(--radius);
+}
+
+@media (max-width: 820px) {
+  .split { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================
+   media, (pages/media.html) this does the click to open full size function
+   ========================================================== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.gallery a {
+  display: block;
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.1s ease;
+}
+
+.gallery a:hover {
+  background: transparent;
+  border-color: var(--green);
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.gallery span {
+  display: block;
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+/* ==========================================================
+   SPONSOR block (on the sponsorship page) — the buttons are ONLY the logo,
+   no white tile, no padding, no border. the size of the logo IS the level:
+   each .sponsor-tier sets --logo-h and everything below it inherits it.
+   ========================================================== */
+.sponsors {
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.sponsors h2 {
+  font-family: var(--font-display);
+  color: var(--text);
+  font-size: clamp(1.1rem, 1rem + 1vw, 1.4rem);
+  margin: 0 0 0.35rem;
+}
+
+.sponsors > p {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0 0 1rem;
+}
+
+.sponsors > p a { color: #ffffff; }
+
+/* ---------- the levels. bigger level = bigger logo, that is the whole system ---------- */
+.sponsor-tier {
+  --logo-h: 72px;
+  margin-top: 1.4rem;
+}
+
+.sponsor-tier--ultimate { --logo-h: clamp(110px, 18vw, 170px); }
+.sponsor-tier--platinum { --logo-h: clamp(88px, 13vw, 128px); }
+.sponsor-tier--gold     { --logo-h: clamp(76px, 11vw, 108px); }
+.sponsor-tier--silver   { --logo-h: clamp(66px, 9.5vw, 92px); }
+.sponsor-tier--bronze   { --logo-h: clamp(58px, 8vw, 78px); }
+.sponsor-tier--led      { --logo-h: clamp(46px, 6.5vw, 64px); }
+
+/* Tier labels: ROBO, green on the purple panel */
+.sponsor-tier h3 {
+  font-family: var(--font-display);
+  color: var(--green);
+  font-size: clamp(0.78rem, 0.74rem + 0.3vw, 0.92rem);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
+  margin: 0 0 0.6rem;
+}
+
+/* rows of bare logos, centered, wrapping. no grid columns, no tiles. */
+.sponsor-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2.25rem);
+}
+
+.sponsor-grid li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--logo-h); /* reserves the row so nothing jumps when the logo loads */
+}
+
+.sponsor-grid a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  text-decoration: none;
+  background: transparent;
+  transition: background 0.1s ease;
+}
+
+.sponsor-grid img {
+  display: block;
+  height: var(--logo-h);
+  width: auto;
+  max-width: min(100%, 340px);
+  object-fit: contain;
+  transition: transform 0.1s ease;
+}
+
+/* the hover backing is WHITE, never green. main a:hover up there wants to paint
+   these links green like every other body link — this is here to overrule it. */
+.sponsor-grid a:hover,
+.sponsor-grid a:focus-visible { background: #ffffff; }
+
+/* only motion allowed: the logo pops a little on hover, transform is free (gpu) */
+.sponsor-grid a:hover img,
+.sponsor-grid a:focus-visible img { transform: scale(1.06); }
+
+/* lone logos just sit centered instead of stretching across the row */
+.sponsor-grid--single,
+.sponsor-grid--ultimate { justify-content: center; }
+
+
+/* ==========================================================
+   NAV FLASH, the screen blinks when u click a nav link (header.js drives it).
+   white blink first, then deep purple + the words in the middle. it only ever
+   animates opacity, so it costs nothing even on the slow laptops
+   ========================================================== */
+.nav-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 6000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-flash--deep { background: var(--page-bg); }
+
+.nav-flash-text {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 9vw, 5rem);
+  line-height: 1.1;
+  letter-spacing: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+/* ==========================================================
+   FOCUS RINGS, keyboard people get a real visible ring instead of a outline
+   that vanishes into the purple. this is basically the only focus styling
+   in the whole site so like, dont delete it.
+   ========================================================== */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+#main-nav a:focus-visible,
+.dropdown a:focus-visible,
+.social-row a:focus-visible,
+.copy-email:focus-visible { border-radius: 999px; }
+
+/* ==========================================================
+    MOTION SAFETY SO IT DONT SLIME ITSELF OUT
+   ========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .nav-flash { display: none; }
+
+  *, *::before, *::after {
+    transition: none !important;
+  }
+}

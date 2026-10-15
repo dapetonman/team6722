@@ -1,0 +1,237 @@
+/* ==========================================================
+   team.css, does team and roles pages because i dont feel like it bro
+   fonts, color tokens, global base, top bar, buttons, and
+   shared utilities (.crumb/.split/.card-link/.center) all
+   live in header.css (loaded first). (copied like 4 times)
+   palette, deep purple page and brand purple column (#663497), 
+   white text, green accents.
+   ========================================================== */
+
+/* base content column */
+main,
+.team-page {
+  background: var(--purple);
+  color: var(--text);
+  font-family: var(--font-body);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 2.5rem;
+  line-height: inherit;
+}
+
+/* headings, big ROBO.woff2 text (white on the purple column) */
+main h1,
+.team-page h1,
+main table td strong,
+.leader-card strong,
+.join-card,
+main a[href^="mailto:"] {
+  font-family: var(--font-display);
+}
+
+main hr,
+.team-page hr {
+  border: 0;
+  border-top: 2px solid var(--border);
+  margin: 1.5rem 0;
+}
+
+main h1,
+.team-page h1 {
+  font-size: clamp(1.6rem, 1rem + 2.2vw, 2.1rem);
+  text-align: center;
+  color: var(--text);
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--green);
+}
+
+/* hero photo */
+.team-hero { text-align: center; }
+
+.team-hero img {
+  display: block;
+  width: min(100%, 900px);
+  height: auto;
+  margin: 0 auto;
+  border: 3px solid var(--green);
+  border-radius: var(--radius);
+}
+
+/* individual role pages (pages/roles/*.html)
+   .crumb lives in header.css (shared). (THIS CAN BE EVIL, AND WILL BE RANDOMLY. TODO: FIX IT) */
+.role-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1.1rem + 1.4vw, 1.8rem);
+  color: var(--text);
+  text-align: left;
+  margin: 0 0 1rem;
+}
+
+/* quote under each person (tp be filled in later) */
+.role-quote {
+  max-width: 700px;
+  margin: 1.25rem auto 0;
+  padding: 1rem 1.25rem;
+  background: var(--panel);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* leaders, turns the main table into a simple responsive grid for roles and imfo */
+main table {
+  width: 100%;
+  border: 0;
+  margin: 1rem 0;
+}
+
+main table tbody {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.85rem;
+}
+
+main table tr { display: contents; }
+
+main table td,
+.leader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  transition: border-color 0.1s ease;
+}
+
+main table td:hover,
+.leader-card:hover {
+  border-color: var(--green);
+}
+
+main table td img,
+.leader-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 3px;
+  background: #ddd;
+}
+
+main table td strong,
+.leader-card strong {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--green);
+}
+
+/* small text Roboto */
+main table td span,
+.leader-card span,
+main p,
+main i {
+  font-family: var(--font-body);
+}
+
+main table td span,
+.leader-card span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* spotlight? i cant even remember what this is for */
+main iframe {
+  display: block;
+  width: min(100%, 800px);
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin: 0 auto 1rem;
+  border: 3px solid var(--green);
+  border-radius: var(--radius);
+  background: #000;
+}
+
+main p {
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+main i {
+  display: block;
+  max-width: 800px;
+  margin: 0.75rem auto 0;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--green);
+  color: var(--muted);
+}
+
+/* join darker card with a green edge on the purple column, no idea why this is here still */
+.join-card {
+  max-width: 700px;
+  margin: 1.25rem auto 0;
+  text-align: center;
+  background: var(--panel);
+  color: #ffffff;
+  border: 2px solid var(--green);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+}
+
+.join-card p {
+  color: #ffffff;
+  margin: 0;
+}
+
+/* plain links on the join card (non-mailto) why would i do that, they did before but its ugly */
+.join-card a.wired { color: #ffffff; }
+
+/* email button same white hover as every button except its cooler bro */
+main a[href^="mailto:"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  min-width: 160px;
+  margin-top: 0.75rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 999px;
+  background: var(--green);
+  color: #111111;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.1s ease, color 0.1s ease, transform 0.1s ease;
+}
+
+main a[href^="mailto:"]:hover {
+  background: #ffffff;
+  color: #111111;
+  transform: translateY(-2px);
+}
+
+/* sponsor block styles are shared in header.css (loaded first). Fix this */
+
+/* footer is defined once in header.css. you know this already */
+
+/* basic responsive i forgot why this needs to be here */
+@media (max-width: 640px) {
+  main,
+  .team-page {
+    padding: 1.25rem 0.9rem 2.25rem;
+  }
+
+  main table tbody {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  main table td img,
+  .leader-card img {
+    height: 180px;
+  }
+}

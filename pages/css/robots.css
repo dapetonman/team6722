@@ -1,0 +1,172 @@
+/* ==========================================================
+   robots.css is the tobots Index + robot Pages
+   fonts, colors, base, top bar, buttons, and
+   shared utilities (.crumb/.center/.card-link) all live in
+   header.css (loaded first). I'm starting to just copy and paste this 10000 times since im making a template soon, also, hello later me, im in the big z's class and im going to have to remove this, or not a hole.
+   palette is the deep purple page + brand purple column (#663497),
+   white text, green accents.
+   Robot pages stay CENTERED (no split layout). (f u what from me bro)
+   ========================================================== */
+
+/* base content column */
+main,
+.robots-page {
+  background: var(--purple);
+  color: var(--text);
+  font-family: var(--font-body);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 2.5rem;
+  line-height: inherit;
+}
+
+/* headings: big ROBO.woff2 text (white on the purple column i think is cool) */
+main h1,
+.robots-page h1,
+main table td strong {
+  font-family: var(--font-display);
+}
+
+main hr,
+.robots-page hr {
+  border: 0;
+  border-top: 2px solid var(--border);
+  margin: 1.5rem 0;
+}
+
+main h1,
+.robots-page h1 {
+  font-size: clamp(1.6rem, 1rem + 2.2vw, 2.1rem);
+  text-align: center;
+  color: var(--text);
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--green);
+}
+
+/* cover photo */
+.robots-hero { text-align: center; }
+
+.robots-hero img {
+  display: block;
+  width: min(100%, 900px);
+  height: auto;
+  margin: 0 auto;
+  border: 3px solid var(--green);
+  border-radius: var(--radius);
+}
+
+/* robot grid, same card pattern as the team page, stealing because i am NOT REDOING IT. */
+main table {
+  width: 100%;
+  border: 0;
+  margin: 1rem 0;
+}
+
+main table tbody {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.85rem;
+}
+
+main table tr { display: contents; }
+
+main table td {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  transition: border-color 0.1s ease;
+}
+
+main table td:hover { border-color: var(--green); }
+
+main table td img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 3px;
+  background: #ddd;
+}
+
+main table td strong {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--green);
+}
+
+main table td span {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* small text: roboto.woff2 */
+main p,
+main i {
+  font-family: var(--font-body);
+}
+
+main p {
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+main i {
+  display: block;
+  max-width: 800px;
+  margin: 0.75rem auto 0;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--green);
+  color: var(--muted);
+}
+
+/* robot detail spec list */
+.spec-list {
+  list-style: none;
+  margin: 1rem auto;
+  padding: 0;
+  max-width: 640px;
+}
+
+.spec-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.spec-list li:last-child { border-bottom: 0; }
+
+.spec-list strong {
+  font-family: var(--font-display);
+  color: var(--green);
+}
+
+/* sponsor block styles are shared in header.css (loaded first). i might change this around but not rn */
+
+/* footer defined in header.css to the dumbass me who forgot somehww, yes you. */
+
+/* basic responsive shi */
+@media (max-width: 640px) {
+  main,
+  .robots-page {
+    padding: 1.25rem 0.9rem 2.25rem;
+  }
+
+  main table tbody {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  main table td img {
+    height: 180px;
+  }
+}

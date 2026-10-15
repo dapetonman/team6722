@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LED 6722 - Robots</title>
+  <meta name="description" content="The FRC and VEX robots built by LED Robotics 6722." />
+  <link rel="icon" href="../images/favicon.ico" />
+
+  <!-- Page styles (header.css first: fonts, tokens, bar, buttons) -->
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/robots.css" />
+</head>
+
+<body>
+  <!-- ==========================================================
+    ROBOTS PAGE
+    purple content column, white text, green accents. I'm going to have to say this 10000 times.
+    every robot card links to pages/robots/<name>.html.
+    robot pages stay CENTERED (no split layout). i like this better bruh
+    shared bar built by ../header.js because yk why u read the stupid book (i havent wrote it yet - preston 10-1-2026)
+  ========================================================== -->
+
+  <!-- shared bar somewhat placeholder: header.js fills this in. data-base =
+       path back to the site root, data-page = active nav key. (works)-->
+  <div id="site-header" data-base="../" data-page="robots"></div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="robots-page" id="content">
+
+    <!-- cover photo -->
+    <section>
+      <hr />
+      <h1>Our robots</h1>
+      <div class="robots-hero">
+        <img src="../images/robots/Robots Cover 2026.jpg" alt="Oooh, robot." />
+      </div>
+    </section>
+
+    <!-- FRC lineup, 2017 to now! -->
+    <section>
+      <hr />
+      <h1>FRC, 2017-Now</h1>
+      <table class="robots">
+        <tbody>
+          <tr>
+            <td>
+              <a class="card-link" href="robots/sherman.html">
+                <img src="../images/robots/Sherman.JPG" alt="Sherman" />
+                <strong>Sherman</strong><span>2026</span>
+              </a>
+            </td>
+            <td>
+              <a class="card-link" href="robots/trident.html">
+                <img src="../images/robots/Trident.JPG" alt="Trident" />
+                <strong>Trident</strong><span>2025</span>
+              </a>
+            </td>
+            <td>
+              <a class="card-link" href="robots/maestro.html">
+                <img src="../images/robots/Maestro.JPG" alt="Maestro" />
+                <strong>Maestro</strong><span>2024</span>
+              </a>
+            </td>
+            <td>
+              <a class="card-link" href="robots/banshee.html">
+                <img src="../images/robots/Banshee.jpg" alt="Banshee" />
+                <strong>Banshee</strong><span>2023</span>
+              </a>
+            </td>
+            <td>
+              <a class="card-link" href="robots/vega.html">
+                <img src="../images/robots/Vega.JPG" alt="Vega" />
+                <strong>Vega</strong><span>2022</span>
+              </a>
+            </td>
+            <td>
+              <a class="card-link" href="robots/midnight.html">
+                <img src="../images/robots/Midnight.JPG" alt="Midnight" />
+                <strong>Midnight</strong><span>2019</span>
+              </a>
+            </td>
+            <td>
+              <a class="card-link" href="robots/shmvt1.html">
+                <img src="../images/robots/SHMVT1.JPG" alt="S.H.M.V.T.Y.1." />
+                <strong>S.H.M.V.T.Y.1.</strong><span>2018</span>
+              </a>
+            </td>
+            <td>
+              <a class="card-link" href="robots/roy.html">
+                <img src="../images/robots/Roy.JPG" alt="Roy" />
+                <strong>Roy</strong><span>2017</span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- About FRC -->
+    <section>
+      <h1>About FRC</h1>
+      <p>
+        The First Robotics Competition, or FRC, is our club's main project every year. Our
+        members all come together to build a robot and learn the fundamentals of engineering,
+        programming, and electronics in an environment that welcomes everyone. Our FRC robots
+        are fully designed, built, wired, programmed, and controlled exclusively by our members,
+        with our amazing mentors providing the guidance our students need to excel. Those who
+        graduate out of the club go on to do great things in college and the work force, and
+        commonly come back to mentor and give their knowledge and experience to everyone who
+        needs it. We use FRC as a vehicle to help our community and its people be brighter than
+        ever before.
+      </p>
+      <p><i>- Santiago Velez, Build Lead of LED Robotics 6722</i></p>
+      <hr />
+      <!-- ha, hr like human resources (im not funny)-->
+    </section>
+
+    <!-- About VEX -->
+    <section>
+      <h1>About Vex</h1>
+      <p>
+        Although VEX is not our main endeavor, it is a major part of our club. It is very helpful in teaching our new
+        students and helping prepare them for their future in the club. We organize VEX by having upperclassmen
+        in charge of a VEX team and new members working under them, this way they can learn under through their valuable skills from LED Robotics. We have
+        been competing in VEX for several years, achieving reputation throughout Florida, and we've even hosted
+        our own competition for the past two years. Overall VEX is a great learning experience for new members
+        and we will continue to use it and other side projects to teach new members.
+      </p>
+      <p><i>- Orin Mondelli, Programming Lead of LED Robotics</i></p>
+      <hr />
+      <!-- this guy i know, this makes sense.-->
+    </section>
+
+    <!-- footer -->
+        <div class="site-footer">
+      <p>&copy; LED Robotics Team 6722 &mdash; New Port Richey, FL.</p>
+      <p>
+        <a href="../index.html">Home</a> &middot;
+        <a href="team.html">Meet the team</a> &middot;
+        <a href="sponsorship.html">Sponsor us</a> &middot;
+        <a href="branding.html">Branding</a> &middot;
+        <a href="https://github.com/LED-Robotics/led-robotics.github.io" target="_blank" rel="noopener">View site source on GitHub</a> &middot;
+        <a href="https://forms.gle/s6RCjAgyzZ24tDhS7" target="_blank" rel="noopener">Website feedback</a> &middot;
+        <a href="http://www.firstinspires.org" target="_blank" rel="noopener">FIRST</a> &middot;
+        <a href="#top">Back to top</a>
+      </p>
+      <p class="site-credit">Website Made With Love By Preston Espinosa</p>
+    </div>
+
+  </main>
+
+  <!-- shared bar (the cool marquee, logo, nav, socials) -->
+  <script src="../header.js?v=2"></script>
+</body>
+</html>
