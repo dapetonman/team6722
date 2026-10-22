@@ -67,7 +67,7 @@
 
   /* slim almost like a marquee banner at top of page, "LIGHT IT UP" and is technically named a "jumbotron" by what ahlgrim said before*/
   var marqueeUnit = "LIGHT IT UP\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0";
-  var marqueeHalf = new Array(9).join(marqueeUnit) + marqueeUnit;
+  var marqueeHalf = new Array(10).join(marqueeUnit);
 
   /* for formatting reasons, the important stuff will have 10 hyphens on either side of the thingy, if i can remember to do that for all of these */
   
@@ -97,8 +97,8 @@
     '<li><a href="' + base + 'index.html" data-nav="home">Home</a></li>' +
     '<li><a href="' + base + 'pages/team.html" data-nav="team">The Team</a></li>' +
     '<li class="has-dropdown">' +
-    '<a href="#" data-nav="robots" aria-haspopup="true" aria-expanded="false">Our Robots</a>' +
-    '<ul class="dropdown">' +
+    '<button class="nav-dropdown-toggle" type="button" data-nav="robots" aria-expanded="false" aria-controls="robots-dropdown">Our Robots</button>' +
+    '<ul class="dropdown" id="robots-dropdown">' +
     '<li><a href="' + base + 'pages/robots.html">All Robots</a></li>' +
     robotItems +
     "</ul></li>" +
@@ -112,6 +112,58 @@
        but still under the panel. if u move it outside here the bar goes un dimmed again. */
     '<div class="nav-overlay"></div>' +
     "</div>";
+
+  (function configureMarquee() {
+    var marquee = slot.querySelector(".marquee");
+    var track = slot.querySelector(".marquee-track");
+    var copies = track ? track.children : null;
+    if (!marquee || !track || !copies || copies.length < 2) return;
+
+    var repeats = 9;
+    var resizeFrame = 0;
+    var animation = null;
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function animate(copyWidth) {
+      if (animation) animation.cancel();
+      if (reducedMotion.matches || !track.animate) return;
+      animation = track.animate(
+        [{ transform: "translateX(0)" }, { transform: "translateX(-50%)" }],
+        { duration: Math.max(8, copyWidth / 55) * 1000, easing: "linear", iterations: Infinity }
+      );
+    }
+
+    function fit() {
+      var unitWidth = copies[0].getBoundingClientRect().width / repeats;
+      if (!marquee.clientWidth || !unitWidth) return;
+
+      var nextRepeats = Math.max(9, Math.ceil(marquee.clientWidth / unitWidth) + 1);
+      if (nextRepeats !== repeats) {
+        repeats = nextRepeats;
+        var text = new Array(repeats + 1).join(marqueeUnit);
+        copies[0].textContent = text;
+        copies[1].textContent = text;
+      }
+
+      var copyWidth = copies[0].getBoundingClientRect().width;
+      track.classList.add("is-ready");
+      animate(copyWidth);
+    }
+
+    function scheduleFit() {
+      if (resizeFrame) cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(fit);
+    }
+
+    fit();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFit);
+    if (reducedMotion.addEventListener) reducedMotion.addEventListener("change", scheduleFit);
+    if (window.ResizeObserver) {
+      new window.ResizeObserver(scheduleFit).observe(marquee);
+    } else {
+      window.addEventListener("resize", scheduleFit, { passive: true });
+    }
+  })();
 
   (function moveNavToBody() {
     var navEl = slot.querySelector("#main-nav");
@@ -152,13 +204,18 @@
     btn.classList.toggle("open", open);
     overlay.classList.toggle("show", open);
     btn.setAttribute("aria-expanded", open ? "true" : "false");
-    document.body.style.overflow = open ? "hidden" : "";
+    document.body.classList.toggle("nav-open", open);
 
     if (open) {
-      var first = nav.querySelector("a");
-      if (first) first.focus();
-    } else if (document.activeElement && nav.contains(document.activeElement)) {
-      btn.focus();
+      window.setTimeout(function () {
+        if (!nav.classList.contains("open")) return;
+        var first = nav.querySelector("a");
+        if (first) first.focus();
+      }, 260);
+    } else {
+      dropdown.classList.remove("open");
+      dropdownLink.setAttribute("aria-expanded", "false");
+      if (document.activeElement && nav.contains(document.activeElement)) btn.focus();
     }
   }
   btn.addEventListener("click", function () {
@@ -189,7 +246,30 @@
     }
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") setSidebar(false);
+    if (e.key === "Escape") {
+      setSidebar(false);
+      return;
+    }
+    if (e.key !== "Tab" || !nav.classList.contains("open")) return;
+
+    var focusable = Array.prototype.filter.call(
+      nav.querySelectorAll('a[href], button:not([disabled])'),
+      function (element) { return element.getClientRects().length > 0; }
+    );
+    if (!focusable.length) return;
+
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (!nav.contains(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+    } else if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
 
   // copies team email to clipboard 

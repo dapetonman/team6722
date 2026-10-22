@@ -50,9 +50,15 @@ main h1,
 /* hero photo */
 .team-hero { text-align: center; }
 
-.team-hero img {
+.team-hero picture {
   display: block;
   width: min(100%, 900px);
+  margin: 0 auto;
+}
+
+.team-hero img {
+  display: block;
+  width: 100%;
   height: auto;
   margin: 0 auto;
   border: 3px solid var(--green);
@@ -67,18 +73,6 @@ main h1,
   color: var(--text);
   text-align: left;
   margin: 0 0 1rem;
-}
-
-/* quote under each person (tp be filled in later) */
-.role-quote {
-  max-width: 700px;
-  margin: 1.25rem auto 0;
-  padding: 1rem 1.25rem;
-  background: var(--panel);
-  border-left: 4px solid var(--green);
-  border-radius: var(--radius);
-  color: var(--muted);
-  font-style: italic;
 }
 
 /* leaders, turns the main table into a simple responsive grid for roles and imfo */
@@ -124,6 +118,8 @@ main table td img,
   border-radius: 3px;
   background: #ddd;
 }
+
+main table td picture { display: block; width: 100%; }
 
 main table td strong,
 .leader-card strong {

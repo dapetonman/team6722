@@ -11,11 +11,6 @@
   <link rel="stylesheet" href="pages/css/header.css" />
   <link rel="stylesheet" href="pages/css/index.css" />
 
-  <style>  
-    .home-page {
-      transform: none !important;
-    }
-  </style>
 </head>
 
 <body>
@@ -26,9 +21,7 @@
     header.js from the data-* attributes below.
   ========================================================== -->
 
-  <!-- intro splash, purple screen with the green LED logo in the middle. the logo
-       then FLIES UP into the top bar and shrinks to fit it (see the script at the
-       bottom), while the backdrop fades away to reveal the home page. -->
+  <!-- Intro splash; home.js animates the logo and starts eligible hero playback. -->
   <div class="intro-splash" aria-hidden="true">
     <div class="intro-backdrop"></div>
     <img class="intro-logo" src="images/LED.png" alt="" />
@@ -47,19 +40,18 @@
       poster="images/team/FRC 2026 Team.JPG"
       aria-label="LED Robotics team intro video"
     >
-      <!-- source order IS the fallback order: webm first (4.5mb, about a fifth
-           of the mp4), then the mp4 for anything that wont take webm, then the
-           team photo for anything that cant play video at all. which one lands
-           gets printed to the console by the script at the bottom of the page. -->
-      <source src="video.webm" type="video/webm" />
-      <source src="video.mp4" type="video/mp4" />
-      <img src="images/team/FRC 2026 Team.JPG" alt="LED Robotics Team 6722" />
-    </video>
+      <!-- H.264 is broadly supported; use the longer version if the short hero clip fails. -->
+      <source src="video-mobile.mp4" type="video/mp4" />
+      <source src="video-fallback.mp4" type="video/mp4" />
+     </video>
     <!-- the last stand: shown by script if webm AND mp4 both go sideways -->
     <img
       class="hero-fallback"
-      src="images/team/FRC 2026 Team.JPG"
-      alt="LED Robotics Team 6722"
+      src="images/team/FRC%202026%20Team-960.webp"
+      width="1920"
+      height="1039"
+      alt=""
+      aria-hidden="true"
     />
     <div class="hero-overlay"></div>
     
@@ -72,7 +64,7 @@
         FIRST Robotics Competition.
       </p>
       <div class="hero-actions">
-        <!-- Meet the Team: opens the quote modal -->
+        <!-- Main path to team information. -->
         <a class="btn" href="pages/team.html" aria-label="Meet the Team">
           Meet the Team
         </a>
@@ -112,9 +104,9 @@
     <!-- links in middle -->
     <div class="link-grid">
       <div class="link-card">
-        <h2>Competition</h2>
+        <h1>Competition</h1>
         <p>
-          <a href="http://firstinspires.org/robotics/frc">FIRST Robotics Competition (FRC)</a>
+          <a href="https://www.firstinspires.org/robotics/frc">FIRST Robotics Competition (FRC)</a>
         </p>
         <p>
           Season schedule:
@@ -140,14 +132,14 @@
           <p><i>- Elijah Mather, Media Crew of LED Robotics 6722</i></p>
         </div>
         <div class="split-media">
-          <iframe
-            src="https://www.youtube.com/embed?listType=playlist&list=PLuxi5Sn6xkGgSeXcYr_mAruHeAnt-YkBs"
-            title="Led Spotlight"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          >
-          </iframe>
+          <div class="deferred-embed deferred-embed--video"
+            data-src="https://www.youtube.com/embed?listType=playlist&amp;list=PLuxi5Sn6xkGgSeXcYr_mAruHeAnt-YkBs"
+            data-title="LED Spotlight playlist"
+            data-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            data-referrerpolicy="strict-origin-when-cross-origin">
+            <button class="btn embed-load" type="button">Load LED Spotlight playlist</button>
+          </div>
+          <p class="embed-note">Loading this playlist connects your browser to YouTube.</p>
         </div>
       </div>
     </section>
@@ -157,15 +149,12 @@
     <section>
       <h1>LED Upcoming events</h1>
       <div class="responsive-iframe-container">
-        <iframe
-          src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&showTitle=0&showCalendars=0&mode=AGENDA&src=bC5lLmQucm9ib3RpY3MuNjcyMkBnbWFpbC5jb20&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%2333B679&color=%234285F4"
-          width="800"
-          height="600"
-          frameborder="0"
-          scrolling="yes"
-          title="LED Robotics upcoming events calendar"
-        >
-        </iframe>
+        <div class="deferred-embed deferred-embed--calendar"
+          data-src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=America%2FNew_York&amp;showPrint=0&amp;showTitle=0&amp;showCalendars=0&amp;mode=AGENDA&amp;src=bC5lLmQucm9ib3RpY3MuNjcyMkBnbWFpbC5jb20&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%2333B679&amp;color=%234285F4"
+          data-title="LED Robotics upcoming events calendar">
+          <button class="btn embed-load" type="button">Load team calendar</button>
+        </div>
+        <p class="embed-note">Loading the calendar connects your browser to Google.</p>
       </div>
     </section>
     <hr />
@@ -180,7 +169,7 @@
         <a href="pages/branding.html">Branding</a> &middot;
         <a href="https://github.com/LED-Robotics/led-robotics.github.io" target="_blank" rel="noopener">View site source on GitHub</a> &middot;
         <a href="https://forms.gle/s6RCjAgyzZ24tDhS7" target="_blank" rel="noopener">Website feedback</a> &middot;
-        <a href="http://www.firstinspires.org" target="_blank" rel="noopener">FIRST</a> &middot;
+        <a href="https://www.firstinspires.org" target="_blank" rel="noopener">FIRST</a> &middot;
         <a href="#top">Back to top</a>
       </p>
       <p class="site-credit">Website Made With Love By Preston Espinosa</p>
@@ -189,137 +178,7 @@
   </main>
 
   <!-- shared bar (marquee, logo, nav, socials) -->
-  <script src="header.js?v=2"></script>
-
-  <script>
-    // ============ meet the team button and placeholder quote ============
-    (function () {
-      var meetBtn = document.querySelector('.button--meet');
-      var html = document.documentElement;
-      if (!meetBtn) return;
-
-      var modal = document.createElement('div');
-      modal.className = 'meet-modal';
-      modal.innerHTML = [
-        '<div class="meet-modal-inner">',
-        '  <button class="meet-modal-close" aria-label="Close quote" role="button">&times;</button>',
-        '  <h2>Our Team</h2>',
-        '  <blockquote class="meet-quote" id="meet-quote">"This will be implemented soon."</blockquote>',
-        '</div>'].join('');
-
-      document.body.appendChild(modal);
-
-      var closeBtn = modal.querySelector('.meet-modal-close');
-      closeBtn.addEventListener('click', hideModal);
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal || e.target === closeBtn) hideModal();
-      });
-
-      function showModal() {
-        modal.classList.add('active');
-        html.style.overflow = 'hidden'; // prevent scroll while modal is open
-      }
-
-      function hideModal() {
-        modal.classList.remove('active');
-        html.style.overflow = '';
-      }
-
-      meetBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        showModal();
-      });
-    })();
-
-    // unpausable hero video no controls rendered and any pause request
-    // (keyboard, media keys) resumes immediately. THIS HASNT BEEN TESTED)
-    (function () {
-      var v = document.querySelector(".hero-video");
-      if (!v) return;
-      v.addEventListener("pause", function () {
-        var p = v.play();
-        if (p && p.catch) p.catch(function () {});
-      });
-    })();
-
-    // ===== hero video report: prints which source actually made it onto the
-    // screen (webm -> mp4 -> team photo) and drops to the photo if both
-    // videos are dead on arrival. =====
-    (function () {
-      var v = document.querySelector(".hero-video");
-      if (!v) return;
-      var hero = v.closest ? v.closest(".hero") : null;
-      var said = false;
-
-      function file(src) { return src ? src.split("/").pop() : "nothing"; }
-
-      function report() {
-        if (said || !v.currentSrc) return;
-        said = true;
-        console.log("[hero video] using: " + file(v.currentSrc));
-      }
-
-      var canWebm = v.canPlayType ? (v.canPlayType("video/webm") || "no") : "?";
-      var canMp4 = v.canPlayType ? (v.canPlayType("video/mp4") || "no") : "?";
-      console.log("[hero video] browser says webm: " + canWebm + " / mp4: " + canMp4);
-
-      Array.prototype.forEach.call(v.querySelectorAll("source"), function (s) {
-        s.addEventListener("error", function () {
-          console.log("[hero video] " + file(s.src || s.getAttribute("src")) + " no good here, trying the next one");
-        });
-      });
-
-      v.addEventListener("loadeddata", report);
-      v.addEventListener("canplay", report);
-
-      v.addEventListener("error", function () {
-        said = true;
-        console.log("[hero video] neither video plays, using the team photo instead");
-        if (hero) hero.classList.add("video-dead");
-      });
-
-      if (v.readyState >= 2) report();
-    })();
-
-    // ===== intro splash: the big centered logo flies up into the top bar and
-    // shrinks to fit it, then gets out of there. transform + opacity only so the
-    // gpu does all the work, no repaints. reduced motion? we never start, the
-    // splash is display:none and the bar logo is already in place. =====
-    (function () {
-      var splash = document.querySelector(".intro-splash");
-      var from = document.querySelector(".intro-logo");
-      var to = document.getElementById("logo");
-      if (!splash || !from || !to || !from.animate) return;
-      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-      function start() {
-        var a = from.getBoundingClientRect();
-        var b = to.getBoundingClientRect();
-        if (!a.width || !b.width) return; // css fallback hides the splash later
-
-        var scale = b.width / a.width;
-        var dx = (b.left + b.width / 2) - (a.left + a.width / 2);
-        var dy = (b.top + b.height / 2) - (a.top + a.height / 2);
-
-        from.style.willChange = "transform";
-        to.style.visibility = "hidden"; // hide the real logo until the big one lands
-
-        from.animate(
-          [
-            { transform: "translate(-50%, -50%) scale(1)" },
-            { transform: "translate(-50%, -50%) translate(" + dx + "px, " + dy + "px) scale(" + scale + ")" }
-          ],
-          { duration: 900, delay: 300, easing: "cubic-bezier(.65, 0, .35, 1)", fill: "both" }
-        ).onfinish = function () {
-          from.style.willChange = "";
-          to.style.visibility = ""; // hand off, the real bar logo takes over
-          from.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: "forwards" })
-            .onfinish = function () { splash.remove(); };
-        };
-      }
-
-      requestAnimationFrame(start);
-    })();
-  </script>
+  <script src="header.js?v=7"></script>
+  <script src="home.js?v=3"></script>
 </body>
 </html>

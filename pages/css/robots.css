@@ -24,6 +24,8 @@ main,
 /* headings: big ROBO.woff2 text (white on the purple column i think is cool) */
 main h1,
 .robots-page h1,
+main h2,
+.robots-page h2,
 main table td strong {
   font-family: var(--font-display);
 }
@@ -45,12 +47,28 @@ main h1,
   border-bottom: 3px solid var(--green);
 }
 
+main h2,
+.robots-page h2 {
+  font-size: 1.35rem;
+  text-align: left;
+  color: var(--green);
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--border);
+}
+
 /* cover photo */
 .robots-hero { text-align: center; }
 
-.robots-hero img {
+.robots-hero picture {
   display: block;
   width: min(100%, 900px);
+  margin: 0 auto;
+}
+
+.robots-hero img {
+  display: block;
+  width: 100%;
   height: auto;
   margin: 0 auto;
   border: 3px solid var(--green);
@@ -95,6 +113,8 @@ main table td img {
   border-radius: 3px;
   background: #ddd;
 }
+
+main table td picture { display: block; width: 100%; }
 
 main table td strong {
   font-size: 1rem;

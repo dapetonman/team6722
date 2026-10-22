@@ -24,6 +24,20 @@ Stable - Stable is the newest version of the website, including the new features
 
 Development - Exclusively owned and privated by dapetonman on GitHub.
 
-# To run?
-1. To view the website, just open index.html. It's a static website.
-2. Done.
+# Local preview
+
+This is a static HTML, CSS, and JavaScript site. You can open `index.html` directly for a quick preview, or serve the repository root locally to test nested pages and response behavior:
+
+```powershell
+python -m http.server 8080
+```
+
+Then visit `http://localhost:8080`.
+
+# Cloudflare Pages deployment
+
+- Connect this repository to Cloudflare Pages and select the production branch.
+- Leave the build command empty; there is no build step.
+- Set the build output directory to `.` (the repository root).
+- Confirm the production custom domain and HTTPS are active.
+- The root `_headers` file defines response security headers and the Content Security Policy. Check the deployed response headers and browser console after each policy change.

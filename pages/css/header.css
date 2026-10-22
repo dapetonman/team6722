@@ -69,6 +69,8 @@ body {
   line-height: 1.6;
 }
 
+body.nav-open { overflow: hidden; }
+
 /* every heading uses the ROBO display font with no exceptions, so the
    fonts always match from page to page. or else, times new roman will haunt my dreams. */
 h1, h2, h3, h4, h5, h6 {
@@ -128,7 +130,6 @@ h1, h2, h3, h4, h5, h6 {
 .marquee-track {
   display: flex;
   white-space: nowrap;
-  animation: marquee-scroll 9s linear infinite;
 }
 
 .marquee-track span {
@@ -138,11 +139,6 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 3px;
   color: var(--green);
   text-transform: uppercase;
-}
-
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 /* ---------- bar: brand centered, hamburger right. that is the whole bar, do not
@@ -238,6 +234,8 @@ h1, h2, h3, h4, h5, h6 {
   transition: width 0.15s ease, height 0.15s ease;
 }
 
+#logo.logo-hidden { visibility: hidden; }
+
 /* ---------- social icons (black SVGs whitened by filter) ---------- */
 .social-row {
   display: flex;
@@ -282,7 +280,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .social-row a:hover,
 .copy-email:hover {
-  background: #ffffff;
+  background: #ffffff00;
   border-color: #ffffff;
   color: #111111;
 }
@@ -339,24 +337,32 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
-#main-nav a {
+#main-nav a,
+#main-nav button {
   color: var(--text);
   text-decoration: none;
 }
 
-#main-nav > ul > li > a {
+#main-nav > ul > li > a,
+#main-nav > ul > li > .nav-dropdown-toggle {
   display: block;
+  width: 100%;
   text-align: center;
   padding: 0.7rem;
   border-radius: 999px;
   font-family: var(--font-display);
   font-size: 1.1rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
   transition: background 0.1s ease, color 0.1s ease;
 }
 
 /* same hover everywhere: white pill, black text */
 #main-nav > ul > li > a:hover,
-#main-nav > ul > li > a.active {
+#main-nav > ul > li > a.active,
+#main-nav > ul > li > .nav-dropdown-toggle:hover,
+#main-nav > ul > li > .nav-dropdown-toggle.active {
   background: #ffffff;
   color: #111111;
 }
@@ -377,14 +383,14 @@ h1, h2, h3, h4, h5, h6 {
 /* ---------- Our Robots accordion (nests inside the panel, tap or keyboard toggles it) ---------- */
 .has-dropdown { position: relative; }
 
-.has-dropdown > a::after {
+.has-dropdown > .nav-dropdown-toggle::after {
   content: " \25BE";
   display: inline-block;
   font-size: 0.75em;
   transition: transform 0.1s ease;
 }
 
-.has-dropdown.open > a::after { transform: rotate(180deg); }
+.has-dropdown.open > .nav-dropdown-toggle::after { transform: rotate(180deg); }
 
 .dropdown {
   list-style: none;
@@ -409,6 +415,9 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
   transition: background 0.1s ease, color 0.1s ease;
 }
+
+.dropdown a,
+.nav-dropdown-toggle { text-align: center; }
 
 .dropdown a:hover {
   background: var(--green);
@@ -481,8 +490,7 @@ h1, h2, h3, h4, h5, h6 {
    UNIFIED BUTTONS, aka every button the same size, same hover. This was hard. Dont break it. You will anyway. Screw you.
    ========================================================== */
 .btn,
-.btn-blank,
-.button--meet {
+.btn-blank {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -502,8 +510,7 @@ h1, h2, h3, h4, h5, h6 {
     border-color 0.1s ease, transform 0.1s ease;
 }
 
-.btn,
-.button--meet {
+.btn {
   background: var(--green);
   color: #111111; /* black text on every green button */
 }
@@ -516,8 +523,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* one hover thingy for all buttons, white fill, black text, small lift. looks nice, sort of kind of crappy, whatever bro. */
 .btn:hover,
-.btn-blank:hover,
-.button--meet:hover {
+.btn-blank:hover {
   background: #ffffff;
   border-color: #ffffff;
   color: #111111;
@@ -525,8 +531,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn:active,
-.btn-blank:active,
-.button--meet:active { transform: scale(0.97); }
+.btn-blank:active { transform: scale(0.97); }
 
 /* ==========================================================
    SHARED UTILITIES (KEEP THIS ALIVE, OR ELSE...)
@@ -564,8 +569,7 @@ main a:hover,
    button sitting inside the page copy (.home-page), which is how "How to
    Sponsor" ended up with white text + an underline on a green pill. buttons are
    buttons: black text, no underline, whatever hover they already had. */
-main a.btn,
-main a.button--meet { color: #111111; text-decoration: none; }
+main a.btn { color: #111111; text-decoration: none; }
 
 main a.btn-blank { color: var(--text); text-decoration: none; }
 
@@ -622,6 +626,8 @@ main table td a.card-link:hover { background: transparent; }
 .split-media { min-width: 0; }
 
 .split-media { text-align: center; }
+
+.split-media picture { display: block; width: 100%; }
 
 .split-media img {
   display: block;
@@ -771,7 +777,7 @@ main table td a.card-link:hover { background: transparent; }
 /* the hover backing is WHITE, never green. main a:hover up there wants to paint
    these links green like every other body link — this is here to overrule it. */
 .sponsor-grid a:hover,
-.sponsor-grid a:focus-visible { background: #ffffff; }
+.sponsor-grid a:focus-visible { background: #ffffff00; }
 
 /* only motion allowed: the logo pops a little on hover, transform is free (gpu) */
 .sponsor-grid a:hover img,
@@ -832,7 +838,6 @@ button:focus-visible {
     MOTION SAFETY SO IT DONT SLIME ITSELF OUT
    ========================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
   .nav-flash { display: none; }
 
   *, *::before, *::after {
