@@ -5,15 +5,15 @@ Hello! We are LED Robotics, Team 6722, a non-profit team of passionate engineers
 
 # ABOUT WEBSITE
 
-1. Website is built in CSS, JavaScript, and HTML.
+1. Website is built in CSS, JavaScript, and HTML. Raw code is used for performance and ease of modification, aiding future development.
 
-2. This website is professional while still keeping the vibe of LED as a whole; incapsulating the humor of the team!
+2. This website is professional, while keeping the vibe of LED-Robotics as a whole; encapsulating the humor of the team!
 
-3. This website is recreated from scratch. The previous one is hosted at: (https://github.com/LED-Robotics/led-robotics.github.io)
+3. This website was recreated from scratch. The previous one is hosted at: (https://github.com/LED-Robotics/led-robotics.github.io)
 
-4. The website has contains no backend. Later on, a backend is beneficial for the necessary features.
+4. Please provide me suggestions or comments to what should I add or change; I am always up for constructive critic reviews of my code and work. The goal is that the freshman with the same spark in his eyes for web development can build up from this.
 
-5. Please provide me suggestions or comments to what should I add or change; I am always up for constructive critic reviews of my code and work. The freshman with the same spark in his eyes for web development can build up from this!
+**More information is found below;**
 
 # LAYOUT
 **RELEASE - STABLE - DEVELOPMENT**
