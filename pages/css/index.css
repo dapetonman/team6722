@@ -111,6 +111,7 @@
   align-items: stretch;
   justify-content: flex-end;
   overflow: hidden;
+  margin-top: 64px;
 }
 
 .hero.is-video .hero-video {

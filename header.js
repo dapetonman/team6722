@@ -34,7 +34,7 @@
       ["https://www.youtube.com/@LED_Team6722", "youtube", "YouTube"],
       ["https://www.tiktok.com/@led_robotics6722", "tiktok", "TikTok"],
       ["https://www.facebook.com/ledrobotics6722/", "facebook", "Facebook"],
-      ["https://github.com/LED-Robotics/led-robotics.github.io", "github", "GitHub"]
+      ["https://github.com/dapetonman/team6722", "github", "GitHub"]
     ];
     var html = links
       .map(function (l) {
@@ -92,7 +92,7 @@
     '<button id="nav-button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">' +
     "<span></span><span></span><span></span></button>" +
     '<nav id="main-nav" aria-label="Main navigation">' +
-    '<p class="nav-tagline">FRC Team 6722 \u2014 Pasco County FL</p>' +
+    '<p class="nav-tagline">LED Robotics - Team 6722 \u2014 Pasco County, FL</p>' +
     "<ul>" +
     '<li><a href="' + base + 'index.html" data-nav="home">Home</a></li>' +
     '<li><a href="' + base + 'pages/team.html" data-nav="team">The Team</a></li>' +
@@ -273,7 +273,7 @@
   });
 
   // copies team email to clipboard 
-  var address = "ledrobotics6722@gmail.com";
+  var address = "contact@team6722.com";
   slot.querySelectorAll(".copy-email").forEach(function (emailBtn) {
     emailBtn.addEventListener("click", function () {
       function done() {
